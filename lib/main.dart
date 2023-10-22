@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:books/pages/homePage.dart';
+import 'package:books/pages/product_page.dart';
 
 import 'package:provider/provider.dart';
 import 'package:books/db.dart';
@@ -29,15 +30,19 @@ class _MyAppState extends State<MyApp> {
             ColorScheme.fromSeed(
                 brightness: Brightness.dark, seedColor: Colors.blue),
       );
+
+      theme.copyWith(colorScheme: theme.colorScheme.copyWith(background: theme.primaryColor.harmonizeWith(theme.colorScheme.background)));
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Books',
         routes: {
           '/HomePage': (context) =>
               const HomePage(title: 'Books (ik creative :) )'),
+          '/ProductPage': (context) =>
+              ProductPage(book: DB.books["HP1"] as Book),
         },
         theme: theme,
-        home: const HomePage(title: 'Books (ik creative :) )'),
+        home: ProductPage(book: DB.books["HP1"] as Book),
       );
     });
   }
