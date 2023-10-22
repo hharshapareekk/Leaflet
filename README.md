@@ -1,4 +1,4 @@
-# books
+# LEAF- A book reselling app
 
 A new Flutter project.
 
