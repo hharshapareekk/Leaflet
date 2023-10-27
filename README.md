@@ -1,16 +1,7 @@
-# LEAF- A book reselling app
+# LEAFLET- A book reselling app
 
-A new Flutter project.
+Leaflet a book re-selling app that creates a vibrant marketplace for literature enthusiasts, promotes sustainable reading practices, and supports knowledge and culture dissemination.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+It is based on Google's Material You Dynamic Color theme which adapts to your current wallpaper
+![product_page](https://github.com/hharshapareekk/Leaflet_application/blob/main/Screenshot_20231024-114803_books.png)
+![product_page_green](https://github.com/hharshapareekk/Leaflet_application/blob/main/green.png)
