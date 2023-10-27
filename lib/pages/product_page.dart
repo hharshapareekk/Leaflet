@@ -16,58 +16,74 @@ class ProductPage extends StatelessWidget {
         title: SearchBar(trailing: [Icon(Icons.search)]),
       ),
       SliverList.list(children: [
-        Module(
-          child: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  RoundedWidget(child: Image(height: 200, image: AssetImage(book.cover))),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        ListTile(
-                            title: Text(book.title),
-                            leading: const Icon(Icons.local_library)),
-                        ListTile(
-                            title: Text(book.author),
-                            leading: const Icon(Icons.face)),
-                        ListTile(
-                            title: Text("${book.sellers[0].addedOn}"),
-                            leading: const Icon(Icons.calendar_today)),
-                        ListTile(
-                            title: Text("${book.rating}"),
-                            leading: const Icon(Icons.star)),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                      book.sellers.length > 1
-                          ? "₹ ${book.sellers[0].cost} onwards"
-                          : "₹ ${book.sellers[0].cost}",
-                      style: Styles.title),
-                  const Spacer(flex: 1),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                      color: colors.primary),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.shopping_bag_outlined),
-                      color: colors.primary),
-                ],
-              ),
-            ],
-          ),
-        ),
+        BookView(book: book, colors: colors),
         DescriptionBox(book: book),
         SellerView(sellers: book.sellers, colors: colors),
       ])
     ]));
+  }
+}
+
+class BookView extends StatelessWidget {
+  const BookView({
+    super.key,
+    required this.book,
+    required this.colors,
+  });
+
+  final Book book;
+  final ColorScheme colors;
+
+  @override
+  Widget build(BuildContext context) {
+    return Module(
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RoundedWidget(child: Image(height: 200, image: AssetImage(book.cover))),
+              Expanded(
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: Text(book.title),
+                        leading: const Icon(Icons.local_library)),
+                    ListTile(
+                        title: Text(book.author),
+                        leading: const Icon(Icons.face)),
+                    ListTile(
+                        title: Text("${book.sellers[0].addedOn}"),
+                        leading: const Icon(Icons.calendar_today)),
+                    ListTile(
+                        title: Text("${book.rating}"),
+                        leading: const Icon(Icons.star)),
+                  ],
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                  book.sellers.length > 1
+                      ? "₹ ${book.sellers[0].cost} onwards"
+                      : "₹ ${book.sellers[0].cost}",
+                  style: Styles.title),
+              const Spacer(flex: 1),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  color: colors.primary),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.shopping_bag_outlined),
+                  color: colors.primary),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
