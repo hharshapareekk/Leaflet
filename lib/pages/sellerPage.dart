@@ -3,9 +3,10 @@ import 'package:books/db.dart';
 import 'package:books/styles.dart';
 
 class SellerPage extends StatefulWidget {
-  SellerPage({super.key, required this.seller, required this.books});
-  final Seller seller;
-  List<Book> books;
+  SellerPage({super.key});
+  static const routeName = '/sellerPage';
+  final Seller seller = DB.sellers[0];
+  List<Book> books = [DB.books["HP1"]!];
 
   @override
   State<SellerPage> createState() => _SellerPageState();
@@ -19,21 +20,20 @@ class _SellerPageState extends State<SellerPage> {
     final book = DB.books["HP1"]!;
     return Scaffold(
         body: CustomScrollView(slivers: [
-      // SliverAppBar(
-      //   title: SearchBar(
-      //       onChanged: (query) {}, trailing: const [Icon(Icons.search)]),
-      // ),
+      const SliverAppBar(
+        title: 
+        Text("Profile", style: Styles.title,)
+        // SearchBar(
+        //     onChanged: (query) {}, trailing: const [Icon(Icons.search)]),
+      ),
       SliverList.list(
         children: [
-        const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("Profile", style: Styles.title)),
           Module(
               child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
-                  foregroundImage: Image.asset(book.cover).image, radius: 50),
+                  foregroundImage: Image.asset(book.cover).image, radius: 30),
               Expanded(
                 child: Column(
                   children: [
@@ -46,6 +46,15 @@ class _SellerPageState extends State<SellerPage> {
                     ListTile(
                         title: Text("${widget.seller.rating}"),
                         leading: const Icon(Icons.star_rate)),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.shopping_cart), label: const Text("Cart")),
+                    ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.shopping_bag), label: const Text("Your Orders")),
                   ],
                 ),
               )

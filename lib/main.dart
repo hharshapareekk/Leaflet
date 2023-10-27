@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:books/pages/homePage.dart';
 import 'package:books/pages/product_page.dart';
 import 'package:books/pages/sellerPage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:books/db.dart';
 
 void main() async {
   // Avoid errors caused by flutter upgrade.
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  bool dark = true;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -25,31 +28,34 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
-      final theme = ThemeData(
+      final darkTheme = ThemeData(
         useMaterial3: true,
+        fontFamily: GoogleFonts.lato().fontFamily,
         colorScheme: darkColorScheme ??
-            ColorScheme.fromSeed(
-                brightness: Brightness.dark, seedColor: Colors.blue
-            ),
-        );
+                    ColorScheme.fromSeed(
+                        brightness: Brightness.dark, seedColor: Colors.blue));
+      final lightTheme = ThemeData(
+        useMaterial3: true,
+        fontFamily: GoogleFonts.lato().fontFamily,
+        colorScheme: lightColorScheme ??
+                    ColorScheme.fromSeed(
+                        brightness: Brightness.light, seedColor: Colors.blue));
 
-      theme.copyWith(
-          colorScheme: theme.colorScheme.copyWith(
-              background: theme.primaryColor
-                  .harmonizeWith(theme.colorScheme.background)));
       return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Books',
-        routes: {
-          '/HomePage': (context) =>
-              const HomePage(title: 'Books (ik creative :) )'),
-          '/ProductPage': (context) =>
-              ProductPage(book: DB.books["HP1"] as Book),
-          '/SearchPage': (context) => SearchPage(),
-          '/SellerPage': (context) => SellerPage(seller: DB.sellers[0], books: [DB.books["HP1"]!]),
-        },
-        theme: theme,
-        home: SellerPage(seller: DB.sellers[0], books: [DB.books["HP1"]!]),      );
+          debugShowCheckedModeBanner: false,
+          title: 'Books',
+          routes: {
+            HomePage.routeName: (context) => const HomePage(),
+            ProductPage.routeName: (context) =>
+                const ProductPage(),
+            SearchPage.routeName: (context) => SearchPage(),
+            SellerPage.routeName: (context) =>
+                SellerPage(),
+          },
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: ThemeMode.system,
+          home: const HomePage());
     });
   }
 }

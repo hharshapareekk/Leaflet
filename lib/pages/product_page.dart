@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:books/db.dart';
 import 'package:books/styles.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductPage extends StatelessWidget {
-  final Book book;
-  const ProductPage({super.key, required this.book});
+  const ProductPage({super.key});
+  static const routeName = '/productPage';
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final book = ModalRoute.of(context)!.settings.arguments as Book;
 
     return Scaffold(
         body: CustomScrollView(slivers: [
@@ -42,7 +44,8 @@ class BookView extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RoundedWidget(child: Image(height: 200, image: AssetImage(book.cover))),
+              RoundedWidget(
+                  child: Image(height: 200, image: AssetImage(book.cover))),
               Expanded(
                 child: Column(
                   children: [
@@ -56,8 +59,21 @@ class BookView extends StatelessWidget {
                         title: Text("${book.sellers[0].addedOn}"),
                         leading: const Icon(Icons.calendar_today)),
                     ListTile(
-                        title: Text("${book.rating}"),
-                        leading: const Icon(Icons.star)),
+                        title: RatingBar.builder(
+                           initialRating: book.rating,
+                           minRating: 1,
+                           direction: Axis.horizontal,
+                           allowHalfRating: true,
+                           itemCount: 5,
+                           itemSize: 20,
+                           itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                           itemBuilder: (context, _) => const Icon(
+                             Icons.star,
+                             color: Colors.amber,
+                           ),
+                           onRatingUpdate: (rating) {
+                           },
+                        )),
                   ],
                 ),
               )
@@ -117,7 +133,8 @@ class _DescriptionBoxState extends State<DescriptionBox> {
               });
             },
             child: Module(
-                child: Text(widget.book.desc, overflow: TextOverflow.fade,
+                child: Text(widget.book.desc,
+                    overflow: TextOverflow.fade,
                     maxLines: widget.flag ? null : DescriptionBox.maxLines))),
       ],
     );
@@ -170,8 +187,9 @@ class _SellerViewState extends State<SellerView> {
                   child: Column(children: [
                     GridView(
                       shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, mainAxisExtent: 50),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, mainAxisExtent: 50),
                       children: [
                         ListTile(
                             leading: const Icon(Icons.verified_user),
