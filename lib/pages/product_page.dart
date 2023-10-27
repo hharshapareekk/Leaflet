@@ -22,7 +22,7 @@ class ProductPage extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image(height: 200, image: AssetImage(book.cover)),
+                  RoundedWidget(child: Image(height: 200, image: AssetImage(book.cover))),
                   Expanded(
                     child: Column(
                       children: [
@@ -139,14 +139,16 @@ class _SellerViewState extends State<SellerView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-              SizedBox(
-                height: 150,
-                child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: seller.images
-                        .map((uri) => Image(image: AssetImage(uri)))
-                        .toList()),
+              RoundedWidget(
+                child: SizedBox(
+                  height: 150,
+                  child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: seller.images
+                          .map((uri) => Image(image: AssetImage(uri)))
+                          .toList()),
+                ),
               ),
               GestureDetector(
                   child: Column(children: [

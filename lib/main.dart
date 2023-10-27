@@ -3,6 +3,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:books/pages/homePage.dart';
 import 'package:books/pages/product_page.dart';
+import 'package:books/pages/sellerPage.dart';
 
 import 'package:books/db.dart';
 
@@ -45,10 +46,10 @@ class _MyAppState extends State<MyApp> {
           '/ProductPage': (context) =>
               ProductPage(book: DB.books["HP1"] as Book),
           '/SearchPage': (context) => SearchPage(),
+          '/SellerPage': (context) => SellerPage(seller: DB.sellers[0], books: [DB.books["HP1"]!]),
         },
         theme: theme,
-        home: SearchPage(),
-      );
+        home: SellerPage(seller: DB.sellers[0], books: [DB.books["HP1"]!]),      );
     });
   }
 }
