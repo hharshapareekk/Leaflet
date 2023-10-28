@@ -20,8 +20,11 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         body: CustomScrollView(slivers: [
       SliverAppBar(
-        title: SearchBar(
-            onChanged: (query) {}, trailing: const [Icon(Icons.search)]),
+        title: Hero(
+          tag: "search",
+          child: SearchBar(
+              onChanged: (query) {}, trailing: const [Icon(Icons.search)]),
+        ),
       ),
       SliverList.list(children: [
         GridView(
@@ -30,6 +33,7 @@ class _SearchPageState extends State<SearchPage> {
                 crossAxisCount: 2, mainAxisExtent: 290),
             children: [
               ...DB.books.keys.map((key) {
+                print(key);
                 return GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, ProductPage.routeName,
@@ -58,10 +62,14 @@ class BookView extends StatelessWidget {
     final Seller seller = book.sellers[0];
     return Module(
       child: Column(children: [
-        RoundedWidget(
-          child: Image(
-            height: 200,
-            image: AssetImage(book.cover),
+        Hero(
+          tag: book.title,
+          transitionOnUserGestures: true,
+          child: RoundedWidget(
+            child: Image(
+              height: 200,
+              image: AssetImage(book.cover),
+            ),
           ),
         ),
         Row(

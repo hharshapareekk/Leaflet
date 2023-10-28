@@ -1,3 +1,4 @@
+import 'package:books/pages/searchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:books/db.dart';
 import 'package:books/styles.dart';
@@ -14,8 +15,14 @@ class ProductPage extends StatelessWidget {
 
     return Scaffold(
         body: CustomScrollView(slivers: [
-      const SliverAppBar(
-        title: SearchBar(trailing: [Icon(Icons.search)]),
+      SliverAppBar(
+        title: Hero(
+            tag: "search",
+            child: SearchBar(
+                onTap: () {
+                  Navigator.pushNamed(context, SearchPage.routeName);
+                },
+                trailing: const [Icon(Icons.search)])),
       ),
       SliverList.list(children: [
         BookView(book: book, colors: colors),
@@ -44,8 +51,12 @@ class BookView extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RoundedWidget(
-                  child: Image(height: 200, image: AssetImage(book.cover))),
+              Hero(
+                tag: book.title,
+                transitionOnUserGestures: true,
+                child: RoundedWidget(
+                    child: Image(height: 200, image: AssetImage(book.cover))),
+              ),
               Expanded(
                 child: Column(
                   children: [
@@ -60,20 +71,19 @@ class BookView extends StatelessWidget {
                         leading: const Icon(Icons.calendar_today)),
                     ListTile(
                         title: RatingBar.builder(
-                           initialRating: book.rating,
-                           minRating: 1,
-                           direction: Axis.horizontal,
-                           allowHalfRating: true,
-                           itemCount: 5,
-                           itemSize: 20,
-                           itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                           itemBuilder: (context, _) => const Icon(
-                             Icons.star,
-                             color: Colors.amber,
-                           ),
-                           onRatingUpdate: (rating) {
-                           },
-                        )),
+                      initialRating: book.rating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 20,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {},
+                    )),
                   ],
                 ),
               )
@@ -162,6 +172,7 @@ class _SellerViewState extends State<SellerView> {
     Seller seller = widget.sellers[widget.index];
     final int sellersLen = widget.sellers.length - 1;
     final colors = widget.colors;
+    const sensitivity = 12;
     return Column(
       children: [
         const Padding(
@@ -221,13 +232,13 @@ class _SellerViewState extends State<SellerView> {
                     ),
                   ]),
                   onHorizontalDragUpdate: (details) {
-                    if (details.delta.dx > 20) {
+                    if (details.delta.dx > sensitivity) {
                       if (widget.index < sellersLen) {
                         setState(() {
                           widget.index++;
                         });
                       }
-                    } else if (details.delta.dx < -20) {
+                    } else if (details.delta.dx < -sensitivity) {
                       if (widget.index > 0) {
                         setState(() {
                           widget.index--;

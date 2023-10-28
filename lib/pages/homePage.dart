@@ -4,7 +4,6 @@ import 'package:books/pages/sellerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:books/db.dart';
 import 'package:books/styles.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +11,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.colorScheme;
     final book = DB.books["HP1"]!;
 
     return Scaffold(
@@ -21,16 +19,20 @@ class HomePage extends StatelessWidget {
         title: AppBar(
           title: const Text("Good morning", style: Styles.greeting),
           actions: [
-            IconButton(onPressed: 
-                () {
-                    Navigator.pushNamed(context, SearchPage.routeName);
-                }, icon: const Icon(Icons.search)),
-            GestureDetector(
-                onTap: () {
-                    Navigator.pushNamed(context, SellerPage.routeName);
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, SearchPage.routeName);
                 },
-              child: CircleAvatar(radius: 16,
-              foregroundImage: Image.asset(book.cover).image),
+                icon: const Hero(tag: "search", child: Icon(Icons.search))),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, SellerPage.routeName);
+              },
+              child: Hero(
+                tag: "avatar",
+                child: CircleAvatar(
+                    radius: 16, foregroundImage: Image.asset(book.cover).image),
+              ),
             ),
           ],
         ),
@@ -52,20 +54,29 @@ class HomePage extends StatelessWidget {
             children: [
               ...DB.books.keys.map((key) {
                 return GestureDetector(
-                  child: Card(
-                      child: ListTile(
-                    onTap: (() {
-                              Navigator.pushNamed(context, ProductPage.routeName, arguments: DB.books[key]!);
-                    }),
-                    minLeadingWidth: 20,
-                    leading: SizedBox(
-                        height: 100,
-                        child: RoundedWidget(
-                            child: Image(image: AssetImage(DB.books[key]!.cover)))),
-                    title: Text(DB.books[key]!.title, style: const TextStyle(fontSize: 14),
-                        overflow: TextOverflow.fade, maxLines: 2),
-                  )),
-                );
+                    child: Card(
+                        child: ListTile(
+                  onTap: (() {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                        arguments: DB.books[key]!);
+                  }),
+                  minLeadingWidth: 20,
+                  leading: SizedBox(
+                    height: 100,
+                    // child: Hero(
+                    //   tag: "$key 1",
+                    //   transitionOnUserGestures: true,
+                    child: Hero(
+                      tag: DB.books[key]!.title,
+                      child: RoundedWidget(
+                          child: Image(image: AssetImage(DB.books[key]!.cover))),
+                    ),
+                  ),
+                  title: Text(DB.books[key]!.title,
+                      style: const TextStyle(fontSize: 14),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2),
+                )));
               })
             ],
           ),
@@ -127,12 +138,17 @@ class BookList extends StatelessWidget {
             children: DB.books.keys.map((key) {
               return Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: RoundedWidget(
-                    child: Image(image: AssetImage(DB.books[key]!.cover))),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, ProductPage.routeName,
+                        arguments: DB.books[key]!);
+                  },
+                  child: RoundedWidget(
+                      child: Image(image: AssetImage(DB.books[key]!.cover))),
+                ),
               );
             }).toList()),
       ),
     );
   }
 }
-

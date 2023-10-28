@@ -15,6 +15,17 @@ class DT {
   }
 }
 
+class CartItem {
+  final Book book;
+  final Seller seller;
+  int quantity;
+  CartItem({
+    required this.book,
+    required this.seller,
+    required this.quantity,
+  });
+}
+
 class Seller {
   final String name;
   final String loc;
@@ -23,7 +34,13 @@ class Seller {
   final int cost;
   final DT addedOn;
 
-  Seller({ required this.addedOn, required this.name, required this.rating, required this.images, required this.cost, required this.loc});
+  Seller(
+      {required this.addedOn,
+      required this.name,
+      required this.rating,
+      required this.images,
+      required this.cost,
+      required this.loc});
 }
 
 class Book {
@@ -66,53 +83,122 @@ class Book {
 }
 
 class DB {
-
-    static List<Seller> sellers = [
-        Seller(name: "Aryan", rating: 5.0, images: ["assets/book1.jpg", "assets/book2.jpg", "assets/book3.jpg"], cost: 100, loc: "Pune", addedOn: const DT(year: 2023, month: 8, day: 24)),
-        Seller(name: "Lochlani", rating: 3.7, images: ["assets/book2.jpg"], cost: 150, loc: "Mumbai", addedOn: const DT(day: 10, month:8, year: 1942)),
-        Seller(name: "Harsha", rating: 0.0, images: ["assets/book3.jpg"], cost: 10000, loc: "Kohlapur", addedOn: const DT(day:15, month: 10, year: 1905)),
-    ];
+  static List<Seller> sellers = [
+    Seller(
+        name: "Aryan",
+        rating: 5.0,
+        images: ["assets/book1.jpg", "assets/book2.jpg", "assets/book3.jpg"],
+        cost: 100,
+        loc: "Pune",
+        addedOn: const DT(year: 2023, month: 8, day: 24)),
+    Seller(
+        name: "Lochlani",
+        rating: 3.7,
+        images: ["assets/book2.jpg"],
+        cost: 150,
+        loc: "Mumbai",
+        addedOn: const DT(day: 10, month: 8, year: 1942)),
+    Seller(
+        name: "Harsha",
+        rating: 0.0,
+        images: ["assets/book3.jpg"],
+        cost: 10000,
+        loc: "Kohlapur",
+        addedOn: const DT(day: 15, month: 10, year: 1905)),
+  ];
   static Map<String, Book> books = {
+    "fire": Book(
+        desc:
+            """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+
+Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!
+
+
+Having become classics of our time, the Harry Potter eBooks never fail to bring comfort and escapism. With their message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.""",
+        title: "Fire & Blood",
+        author: "George RR Martin",
+        isbn: "",
+        cover: "assets/fire.jpg",
+        rating: 5,
+        sellers: sellers),
+    "dragon": Book(
+        desc:
+            """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+
+Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!
+
+
+Having become classics of our time, the Harry Potter eBooks never fail to bring comfort and escapism. With their message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.""",
+        title: "Dance Of Dragons",
+        author: "George RR Martin",
+        isbn: "",
+        cover: "assets/dragons.jpg",
+        rating: 5,
+        sellers: sellers),
+    "kafka": Book(
+        desc:
+            """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+
+Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!
+
+
+Having become classics of our time, the Harry Potter eBooks never fail to bring comfort and escapism. With their message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.""",
+        title: "Kafka On The Shore",
+        author: "Haruki Murakami",
+        isbn: "",
+        cover: "assets/Kafka.jpg",
+        rating: 5,
+        sellers: sellers),
     "HP1": Book(
-            desc: """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+        desc:
+            """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
 
 Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!
 
 
 Having become classics of our time, the Harry Potter eBooks never fail to bring comfort and escapism. With their message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.""",
-      title: "Harry Potter And The Philosoper's Stone",
-      author: "J.K. Rowling",
-      isbn: "",
-      cover: "assets/HP1.jpg",
-      rating: 5,
-      sellers: sellers
-    ),
+        title: "Harry Potter And The Philosoper's Stone",
+        author: "J.K. Rowling",
+        isbn: "",
+        cover: "assets/HP1.jpg",
+        rating: 5,
+        sellers: sellers),
     "HP4": Book(
-            desc: """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+        desc:
+            """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
 
 Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!
 
 
 Having become classics of our time, the Harry Potter eBooks never fail to bring comfort and escapism. With their message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.""",
-      title: "Harry Potter And The Goblet Of Fire",
-      author: "J.K. Rowling",
-      isbn: "",
-      cover: "assets/HP4.jpg",
-      rating: 5,
-      sellers: sellers    ),
+        title: "Harry Potter And The Goblet Of Fire",
+        author: "J.K. Rowling",
+        isbn: "",
+        cover: "assets/HP4.jpg",
+        rating: 5,
+        sellers: sellers),
     "HP7": Book(
-            desc: """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+        desc:
+            """Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
 
 Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!
 
 
 Having become classics of our time, the Harry Potter eBooks never fail to bring comfort and escapism. With their message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.""",
-      title: "Harry Potter And The Deathly Hallows",
-      author: "J.K. Rowling",
-      isbn: "",
-      cover: "assets/HP7.jpg",
-      rating: 5,
-      sellers: sellers
-    ),
+        title: "Harry Potter And The Deathly Hallows",
+        author: "J.K. Rowling",
+        isbn: "",
+        cover: "assets/HP7.jpg",
+        rating: 5,
+        sellers: sellers),
   };
+
+  static List<CartItem> carts = [
+    CartItem(book: DB.books["HP4"]!, seller: sellers[0], quantity:2),
+    CartItem(book: DB.books["HP7"]!, seller: sellers[1], quantity:3),
+    CartItem(book: DB.books["fire"]!, seller: sellers[0], quantity:2),
+    CartItem(book: DB.books["kafka"]!, seller: sellers[2], quantity:1),
+  ];
+
+
 }

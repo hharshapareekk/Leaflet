@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:books/db.dart';
 import 'package:books/styles.dart';
+import 'package:books/pages/cartPage.dart';
 
 class SellerPage extends StatefulWidget {
   SellerPage({super.key});
@@ -32,8 +33,11 @@ class _SellerPageState extends State<SellerPage> {
               child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircleAvatar(
-                  foregroundImage: Image.asset(book.cover).image, radius: 30),
+              Hero(
+                tag: "avatar",
+                child: CircleAvatar(
+                    foregroundImage: Image.asset(book.cover).image, radius: 30),
+              ),
               Expanded(
                 child: Column(
                   children: [
@@ -53,7 +57,7 @@ class _SellerPageState extends State<SellerPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.shopping_cart), label: const Text("Cart")),
+                    ElevatedButton.icon(onPressed: () {Navigator.pushNamed(context, CartPage.routeName);}, icon: const Icon(Icons.shopping_cart), label: const Text("Cart")),
                     ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.shopping_bag), label: const Text("Your Orders")),
                   ],
                 ),

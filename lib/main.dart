@@ -7,6 +7,9 @@ import 'package:books/pages/sellerPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:books/db.dart';
+import 'package:books/pages/loginSeller.dart';
+import 'package:books/pages/loginCustomer.dart';
+import 'package:books/pages/cartPage.dart';
 
 void main() async {
   // Avoid errors caused by flutter upgrade.
@@ -51,6 +54,8 @@ class _MyAppState extends State<MyApp> {
             SearchPage.routeName: (context) => SearchPage(),
             SellerPage.routeName: (context) =>
                 SellerPage(),
+            CartPage.routeName: (context) =>
+                CartPage(),
           },
           theme: lightTheme,
           darkTheme: darkTheme,

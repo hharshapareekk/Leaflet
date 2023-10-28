@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class loginCustomer extends StatefulWidget {
   const loginCustomer({super.key});
+  static const routeName = "/loginCustomer";
 
   @override
   State<loginCustomer> createState() => _loginCustomerState();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class loginSeller extends StatefulWidget {
   const loginSeller({super.key});
+  static const routeName = "/loginSeller";
 
   @override
   State<loginSeller> createState() => _loginSellerState();
